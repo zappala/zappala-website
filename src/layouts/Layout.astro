@@ -1,0 +1,137 @@
+---
+import "../assets/base.css";
+import NavBar from "../menu/NavBar.astro";
+
+const items = [
+  {
+    title: "Home",
+    url: "/",
+  },
+  {
+    title: "Teaching",
+    url: "/teaching",
+  },
+  {
+    title: "Research",
+    url: "/research",
+  },
+  {
+    title: "Publications",
+    url: "/publications",
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Arvo:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;0,800;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Young+Serif&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="generator" content={Astro.generator} /><title>
+      Daniel Zappala
+    </title></head
+  >
+
+  <body class="mx-0 lg:mx-10">
+    <header class="block bg-white lg:hidden px-3 pb-3 sticky top-0 border-b-2">
+      <div class="bg-white text-byu pr-0 py-2 flex items-center">
+        <a href="https://byu.edu"
+          ><img
+            class="h-8 pt-1 pr-2"
+            alt="BYU logo"
+            src="/images/BYU-monogram-navy.svg"
+          /></a
+        >
+        <a
+          class="no-underline hover:text-sky-500 text-default"
+          href="https://cs.byu.edu"
+        >
+          <span class="text-xl font-bold border-l border-byu mt-1 pl-4 pr-4"
+            >Computer Science</span
+          ></a
+        >
+      </div>
+      <div class="flex">
+        <div class="font-arvo text-xl tracking-wider font-bold pl-2 pt-1">
+          Daniel Zappala
+        </div>
+      </div>
+      <NavBar prefix="" items={items} />
+    </header>
+    <div
+      class="hidden lg:block pt-0 mb-0 sticky top-0 border-b-2 border-gray-800"
+    >
+      <div
+        class="bg-white ml-5 mr-5 sm:px-[75px] sm:ml-auto sm:mr-auto pt-3 max-w-5xl rounded-lg"
+      >
+        <header>
+          <div class="flex pt-2">
+            <div
+              class="font-arvo tracking-wider md:text-4xl font-bold mt-1 pr-4 pt-1"
+            >
+              Daniel Zappala
+            </div>
+            <div
+              class="lg:ml-auto bg-white text-byu pr-0 py-2 flex items-center"
+            >
+              <a href="https://byu.edu"
+                ><img
+                  class="h-8 md:h-10 pt-1 pr-2"
+                  alt="BYU logo"
+                  src="/images/BYU-monogram-navy.svg"
+                /></a
+              >
+              <a
+                class="no-underline hover:text-sky-500 text-default"
+                href="https://cs.byu.edu"
+              >
+                <span
+                  class="text-xl md:text-2xl font-bold border-l border-byu mt-1 pl-4"
+                  >Computer Science</span
+                ></a
+              >
+            </div>
+          </div>
+          <NavBar prefix="" items={items} />
+        </header>
+      </div>
+    </div>
+
+    <div class="pt-0">
+      <div
+        class="bg-blue-50 px-5 py-5 lg:px-[75px] md:ml-auto md:mr-auto py-3 max-w-5xl"
+      >
+        <slot class="font-gothic" />
+      </div>
+    </div>
+  </body>
+</html>

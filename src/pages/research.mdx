@@ -1,0 +1,121 @@
+---
+layout: ../layouts/Layout.astro
+---
+
+import { Label } from "../components/Label.jsx";
+
+# Research
+
+I lead the [Usable Security and Privacy Lab](https://internet.byu.edu), where
+our goal is to help people protect their security and privacy online. Our
+research is human-centered, meaning we collaborate with people to understand and
+design for their needs.
+
+## Current Projects
+
+We have a variety of projects underway.
+
+- Studying how people apply mental models and threat models to understand and
+  reason about new authentication technologies.
+
+- Comparing the usability and adoption of Passkeys authentication with security
+  tokens and passwords.
+
+- Identifying how usable security and privacy researchers conduct human-centric
+  threat modeling.
+
+- Understanding how immigrant generations teach each other online security and
+  privacy practices.
+
+## Recent Projects
+
+<Label>Why do people use secure email?</Label>
+
+_Led by Warda Usman_
+
+Secure email systems that use end-to-end encryption are the best method we have
+for ensuring user privacy and security in email communication. Despite its clear
+advantages, the adoption of secure email remains low, with previous studies
+suggesting mainly that secure email is too complex or inconvenient to use.
+However, the perspectives of those who have, in fact, chosen to use an encrypted
+email system are largely overlooked.
+
+To understand these perspectives, we conducted a semi-structured interview study
+that aims to provide a comprehensive understanding of the mindsets underlying
+adoption and use of secure email services. Our participants come from a variety
+of countries and vary in the amount of time they have been using secure email,
+how often they use it, and whether they use it as their primary account.
+
+Our results uncover that a defining reason for adopting a secure email system is
+to avoid surveillance from big tech companies. However, regardless of the
+complexity and accuracy of a person's mental model, our participants rarely send
+and receive encrypted emails, thus not making full use of the privacy they could
+obtain. These findings indicate that secure email systems could potentially find
+greater adoption by appealing to their privacy advantages, but privacy gains
+will be limited until a critical mass are able to join these systems and easily
+send encrypted emails to each other. For details, read our SOUPS 2023 paper,
+[Distrust of big tech and a desire for privacy: Understanding the motivations of people who have voluntarily adopted secure email](https://www.usenix.org/conference/soups2023/presentation/usman)
+
+<Label>Cryptographic authentication for the web</Label>
+
+_Led by James Conners_
+
+Passwords have numerous drawbacks, and as a result many systems have been
+designed to replace them. Password replacements have generally failed to
+dislodge passwords due to the complexity of balancing usability, deployability,
+and security. However, despite this lack of success, recent advances with
+password managers and FIDO2 afford new opportunities to explore system design
+for password replacements.
+
+In this work, we explore the feasibility of a system for user authentication
+based on certificates. Rather than developing new cryptography, we develop a new
+_system_, called Let's Authenticate, which combines elements of password
+managers, FIDO2, and certificates. Our design incorporates feedback from a
+survey of 397 participants to understand their preferences for system features.
+Let's Authenticate issues privacy-preserving certificates to users,
+automatically manages their credentials, and eliminates trust in third parties.
+
+We provide a detailed security and privacy analysis, an overhead analysis, and a
+systematic comparison of the system to a variety of alternatives using a
+well-known framework. We discuss how Let's Authenticate compares to other
+systems, lessons learned from our design, and issues related to centralized
+management of authentication data. For details, read our 2022 NDSS paper,
+[Let’s Authenticate: Automated Certificates for User Authentication](https://www.ndss-symposium.org/ndss-paper/auto-draft-251/).
+
+This work was a forerunner of the
+[FIDO Alliance PassKeys](https://fidoalliance.org/passkeys/) system. Both
+systems use cryptographic credentials that are stored in the cloud, provide
+privacy to users, and ensure easy account recovery.
+
+<Label>Fake key attacks in secure messaging</Label>
+
+_Led by Tarun Yadav_
+
+Popular instant messaging applications such as WhatsApp and Signal provide
+end-to-end encryption for billions of users. These applications often rely on a
+centralized, application-specific server to distribute public keys and relay
+encrypted messages between the users. As a result, they prevent passive attacks
+but are vulnerable to some active attacks. A malicious or hacked server can
+distribute fake keys to users to perform man-in-the-middle or impersonation
+attacks. While typical secure messaging applications provide a manual method for
+users to detect these attacks, this burdens users, and studies show it is
+ineffective in practice.
+
+This paper presents KTACA, a completely automated approach for key verification
+that is oblivious to users and easy to deploy. We motivate KTACA by designing
+two approaches to automatic key verification. One approach uses client auditing
+(KTCA) and the second uses anonymous key monitoring (AKM). Both have relatively
+inferior security properties, leading to KTACA, which combines these approaches
+to provide the best of both worlds.
+
+We provide a security analysis of each defense, identifying which attacks they
+can automatically detect. We implement the active attacks to demonstrate they
+are possible, and we also create a prototype implementation of all the defenses
+to measure their performance and confirm their feasibility. Finally, we discuss
+the strengths and weaknesses of each defense, the load they impose on clients
+and service providers, and their deployment considerations.
+
+For details, see our 2022 CCS paper,
+[Automatic Detection of Fake Key Attacks in Secure Messaging](https://dl.acm.org/doi/10.1145/3548606.3560588),
+which was a collaboration among researchers at Brigham Young University, Max
+Planck Institute for Informatics, and University of Connecticut.
