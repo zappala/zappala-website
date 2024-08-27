@@ -21,12 +21,16 @@ export default {
 			slate: colors.slate,
 			gray: colors.gray,
 			white: colors.white,
+			black: colors.black,
 		  },
 		  extend: {
 			fontFamily: {
 			  arvo: ['"Arvo"', "sans-serif"],
 			  gothic: ['"Gothic A1"', "sans-serif"]
 			},
+			backgroundImage: {
+				'hero-pattern': "url('/images/timp1.jpeg')",
+			  }
 		},
 	},
 	plugins: [],
