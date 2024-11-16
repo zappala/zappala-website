@@ -1,0 +1,503 @@
+---
+layout: ../layouts/Layout.astro
+---
+
+# Git for Beginners
+
+Git is a version control system. This means you can use it to
+
+- store code you write
+- keep track of all your versions
+- revert to an older version of your code
+- collaborate with other people to write code
+- keep track of who made what changes
+
+This guide teaches you how to use Git via the command line. There are a variety
+of GUIs, and Visual Studio Code has Git built in. I think it helps to learn
+using the command line to really master the concepts.
+
+## Installing Git
+
+### On MacOS
+
+The easiest way is to use the version that ships with MacOS:
+
+```sh
+git --version
+```
+
+This will prompt you to install `Xcode` if you haven't already. Once it is
+installed you should see something like this:
+
+```
+git version 2.39.5 (Apple Git-154)
+```
+
+If you really want the latest version, you can
+[install Homewbrew](https://brew.sh/) and then use:
+
+```sh
+brew install git
+```
+
+### On Windows
+
+Use [Git for Windows](https://gitforwindows.org/), which will get you `Git BASH`
+for a command line version.
+
+### On Linux
+
+Install with [your package manager](https://git-scm.com/downloads/linux)
+
+## Git Configuration
+
+Do some basic configuration first:
+
+```sh
+git config --global user.name "YOUR NAME"
+git config --global user.email "YOUR-EMAIL"
+```
+
+This way when you add code, git will associate your changes with your name and
+email address.
+
+You may also want to configure an editor that you will use to edit commit
+messages:
+
+```sh
+git config --global core.editor "vim"
+```
+
+I prefer to use `vim`. If you skip this step, then you will use your system's
+default editor.
+
+## Git on your own machine
+
+When you are working with Git on your own machine, your actions look like this:
+
+![adding a document to a git staging area and then committing it to the repository](/images/git/git-on-your-machine.png)
+
+- you _add_ new files and modified files to a staging area
+- you _commit_ the staged files to the repository
+
+Every project gets its own repository. So you were building an app to keep track
+of ideas for writing a book, you would create a new repository for it.
+Meanwhile, if you had a website you were building for a friend's knitting store,
+you would likewise keep that in a separate repository.
+
+## Working on a solo project
+
+Let's start with a project that contains text files. This way we don't have to
+worry about whether you have the right setup for a programming language.
+
+Open a terminal. On MacOS, use the built-in terminal or any other terminal you
+have installed. On Windows, use `Git Bash`.
+
+```sh
+mkdir poetry
+cd poetry
+git init
+```
+
+This:
+
+- makes a directory called `poetry`
+- changes into that directory
+- initializes a Git repository
+
+You should see a message after the last step:
+
+```
+Initialized empty Git repository in /Users/zappala/poetry/.git/
+```
+
+Take a look around:
+
+```sh
+ls -al
+```
+
+You should see something like this:
+
+![a listing that shows a .git directory](/images/git/git-ls.png)
+
+Git will store all of your versions in the hidden `.git` directory. If you list
+what is there:
+
+```sh
+ls -al .git
+```
+
+you should see:
+
+![a bunch of files and directories](/images/git/git-ls-git.png)
+
+This is where git is keeping track of different versions of your code, along
+with some configuration files. We won't go into the details of what is stored
+here, just know that this is a _very_ important directory. It is Git repository.
+
+### Add a file
+
+Using your favorite editor, add a file to this project, called
+`the-read-wheelbarrow.txt`, with the following poem:
+
+```
+so much depends
+upon
+
+a red wheel
+barrow
+
+glazed with rain
+water
+
+beside the white
+chickens
+```
+
+This is
+[a famous poem by William Carlos Williams](https://www.poetryfoundation.org/poems/45502/the-red-wheelbarrow).
+
+Now type:
+
+```sh
+git status
+```
+
+You should see something like this:
+
+![git status which files are modified](/images/git/git-status.png)
+
+- You are on the `main` branch. We'll talk more about branches later.
+- You have not committed any code yet. So your repository is empty.
+- You have one file in the project that has never been added to the repository,
+  so it is not being "tracked". This is the file you just added!
+
+### Commit a file
+
+To add this new file to your Git repository, type:
+
+```sh
+git add the-read-wheelbarrow.txt
+```
+
+Now check the status again:
+
+```sh
+git status
+```
+
+Now you should see the added file:
+
+![git status shows file has been added](/images/git/git-status-added.png)
+
+Notice how this says that your new file is a change _to be committed_. What you
+have done is placed your file in a _staging_ area. This allows you to prepare a
+set of changes carefully, including adding and removing files as you see fit,
+before _committing_ those changes to your repository.
+
+You can finalize your commit with:
+
+```sh
+git commit
+```
+
+This will open the editor you configured, e.g. `vim`, to edit a commit message:
+
+![editor for a git commit message](/images/git/git-commit-editor.png)
+
+You can enter a message here, save and quit, and then your commit is done:
+
+![git commit result](/images/git/git-commit.png)
+
+Notice how it tells you that you changed 1 file and inserted 11 lines.
+
+For best practices, commit messages should contain details about exactly what
+you are committing. If you're writing code, you might explain the new
+functionality you have added, or the bug you have fixed. Detailed commit
+messages help your team know exactly what you did, and can likewise help your
+future self to remember what you were doing. We also often wrap commit messages
+at 80 characters so they show up well on a terminal.
+
+For very short commit messages, you may alernatively use:
+
+```sh
+git commit -m "Added a poem"
+```
+
+### Git log and show
+
+Let's take a look at what we have done so far:
+
+```sh
+git log
+```
+
+You will see a log of all the commits you have made so far, which should be just
+one:
+
+![git log output](/images/git/git-log.png)
+
+Each commit has a SHA-1 hash, giving it a unique identifier, an author, a date,
+and a commit message. This uses a `pager`, so you need to type `q` to exit.
+
+If you want to see more detail, add the `-p` flag, which stands for `patch`.
+This shows you the details of what was added and removed, using a common patch
+format.
+
+```sh
+git log -p
+```
+
+![git log deatiled output](/images/git/git-log-p.png)
+
+All of the added lines are prefaced with a `+`.
+
+### Make changes
+
+Edit the poem and make some changes to it on several lines. Then run:
+
+```sh
+git status
+```
+
+![git shows a file that has been modified](/images/git/git-status-change.png)
+
+This shows that git sees that the file has been modified. You can commit the
+change in one line with:
+
+```sh
+git commit -a
+```
+
+or
+
+```sh
+git commit -a -m "changed a few lines"
+```
+
+depending on whether you want to use the editor. The `-a` flag tells git to
+automatically stage and then commit all files that have been modified. We did
+not need to use `git add` to add any new files.
+
+You should see:
+
+![git shows the commit result](/images/git/git-commit-modified.png)
+
+You can also view the log to see the changes:
+
+```sh
+git log -p
+```
+
+![git shows added and removed lines](/images/git/git-log-p-modified.png)
+
+Notice how Git shows your changes in patch format, with removed and added lines.
+
+When you build up a commit history, you have a chain of versions:
+
+![git versions](/images/git/git-versions.png)
+
+We'll talk about how to access those older versions later.
+
+## GitHub
+
+Git is a _distributed_ version control system. When you work on a team, you can
+share repositories through a central system, such as GitHub, GitLab, or
+BitBucket. In that case, you and your teammates are synchronizing your
+repositories with the service you are using:
+
+![two people sharing a repository through GitHub](/images/git/git-distributed-version-control.png)
+
+### Getting started with GitHub
+
+To start with GitHub, you'll need to
+[create an account on GitHub](https://github.com/signup).
+
+Once you do that, you should
+[add an SSH key to your GitHub account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
+
+- You can first
+  [check to see if you have an existing SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/checking-for-existing-ssh-keys)
+- If you don't have a key already, you can
+  [generate an SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+
+### Pushing an existing repository to GitHub
+
+We're going to take your poetry repository and push it to GitHub. To start,
+create a new repo by clicking this button in the top left:
+
+![new repository button](/images/git/github-new-repo.png)
+
+Fill out the form, but **don't click the box to add a README**. You do need to
+decide whether your repository will be public or private.
+
+- A _public_ repository means anyone can see your code and make a copy (fork
+  it), but they cannot change it.
+- A _private_ repository means nobody can see your code.
+- In both cases, you can add collaborators who are authorized to make changes.
+
+Once you are done creating the repository as described above, you will have an
+_empty_ repository. Then you'll see these instructions:
+
+![instructions for pushing to the new repo](/images/git/github-empty-repo.png)
+
+Since you have an existing repository, follow the bottom instructions:
+
+```sh
+git remote add origin git@github.com:zappala/poetry.git
+git push -u origin main
+```
+
+(Note there is another command GitHub proposes to rename the "master" branch to
+"main". But your repository probably already uses "main" for the new branch.
+This is part of a larger movement to remove "master/slave" terminology from
+computer science, because it is insensitive, and instead using "main" or
+"primary" and "secondary" or "backup" instead.)
+
+- The first command _adds a remote_ repository to your configuration. This lets
+  you sychronize the repository on your local machine with the one you just
+  created on GitHub.
+
+- The second command _pushes_ your local repository to the remote repository.
+  This will copy all the versions you have created to the remote repository so
+  they are identical.
+
+### Working with GitHub
+
+Try this out:
+
+- Add or edit your files locally
+- Use `git add`, `git commit -am "message"` to commit locally
+- Use `git push` to push to GitHub
+- Visit your repository on GitHub to see the changes
+
+Normally if you are working alone on a project, every time you _push_ it will
+succeed. However, if you are working on a team, conflicts could arise. We'll
+discuss that later.
+
+### Cloning a repository on GitHub
+
+You can _clone_ a repository by using the `git clone` command. To start, find a
+repository you want to clone. You can use
+[this small test repo](https://github.com/zappala/gittest).
+
+Click the `Code` button:
+
+![code button shows you can clone with HTTPS or SSH](/images/git/github-clone.png)
+
+Normally, you should use `SSH` to clone. Alternatively, you could setup access
+tokens if you want to use `HTTPS`.
+
+For example, you can clone this repository with:
+
+```sh
+git clone git@github.com:zappala/poetry.git
+```
+
+### Working with a friend
+
+Now practice using GitHub with a friend:
+
+- Go to your `poetry` repository on GitHub.
+- Visit `Settings→Collaborators` and use the `Add people` button to add your
+  friend.
+- Give them write access.
+- Have your friend add a new poem in a new file and push to your website
+- Visit GitHub to see their new file.
+- Use `git pull` to pull the changes and sync with your local repository
+- Now you add a file and push, and have them pull.
+
+### Resolving conflicts
+
+Often, you will have teammates making changes at the same time. If you make
+conflicting changes, you'll end up with a Git _conflict_. Let's show you how to
+resolve this.
+
+- With your friend, each of you edit one of the poems on your laptop. Make
+  conflicting changes.
+- Commit your changes to your local repository.
+- Have one of you do a `git push`. This will succeed.
+- Now have the other person do a `git push`. You should see a message like this:
+
+```
+Merge branch 'master' of git@github.com:username/repository.git
+ ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'git@github.com:username/repository.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first merge the remote changes (e.g.,
+hint: 'git pull') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+```
+
+Let's talk about what this means!
+
+- Your push was "rejected" because git could not automatically merge in your
+  changes with your friend's changes.
+- The remote repository (on GitHub) has some changes (from your friend) that you
+  don't have in your local repository.
+
+Since your local repository is not synchronized with the remote repository on
+GitHub, you need to pull in those changes. Try using `git pull`. You'll now see
+something like this:
+
+```
+remote: Counting objects: 8, done.
+remote: Compressing objects: 100% (8/8), done.
+remote: Total 8 (delta 0), reused 2 (delta 0)
+Unpacking objects: 100% (8/8), done.
+From git@github.com:username/repository.git
+   153782f..10e0b68  main     -> origin/main
+CONFLICT (content): Merge conflict in poem.txt
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+At this point, any files listed with `CONFLICT` next to them will have _both_
+your code and your friend's code. They will be clearly marked! And Visual Studio
+Code has a really nice
+[3-way merge editor](https://code.visualstudio.com/docs/sourcecontrol/overview#_3way-merge-editor)
+to help you resolve the conflict.
+
+If you look at the file with a conflict, you will see something like this:
+
+```
+<<<<<<< HEAD
+your friend's line of poetry
+=======
+your line of poetry
+>>>>>>> (commit hash)
+```
+
+You can see the markers: `<`, `=`, and `>` marking the different versions.
+Choose which version you want, delete the lines with markers, and use
+`git commit` to commit the change. Now you can use `git push` to push the fixed
+version, and your friend can use `git pull` to get the new version.
+
+## Branches
+
+If we have time, we'll follow the Git Book to learn about
+[Git Branches in a Nutshell](https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell)
+and
+[Git Branching - Basic Branching and Merging](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging).
+
+Once you understand branching, you can consider a basic branching strategy. See
+for example:
+
+- [Creating a Branching Strategy for Small Teams](https://adevait.com/software/creating-branching-strategy)
+- [Git branching for small teams](https://dev.to/victoria/git-branching-for-small-teams-2n64)
+
+## Checking out an old version
+
+You can look at any of these versions using the commit hash. For example:
+
+```sh
+git checkout 640be78fe2dedc17df8771037d4892040c7e5014
+```
+
+If your editor is open, you'll likely see the file you are editing revert to its
+older version. Git will warn you that you have checked out an old version:
+
+![git tells you that you have checked out an old version](/images/git/git-checkout-old-version.png)
+
+You can go back to the original with `git checkout main`.

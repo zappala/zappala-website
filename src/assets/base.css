@@ -21,6 +21,13 @@
   }
 
   h3 {
+    @apply before:content-['\3009'];
+    @apply bg-yellow-200;
+    @apply p-2;
+    @apply mt-10;
+  }
+
+  h4 {
     @apply after:content-['\0020\2015'];
     @apply before:content-['\2015\0020'];
     @apply mt-10;
@@ -43,5 +50,10 @@
     @apply underline;
     @apply text-sky-500;
     @apply hover:text-red-500;
+  }
+
+  code {
+    @apply text-red-500;
+    @apply font-sans;
   }
 }
